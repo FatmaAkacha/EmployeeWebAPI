@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(Options =>
          Options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -24,7 +25,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(x => x
+             .AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader());
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

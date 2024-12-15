@@ -22,6 +22,7 @@ namespace EmployeeWebAPI.Repository
         public async Task<Employee> GetEmployee(int employeeId)
         {
             return await appDbContext.Employees
+                .Include(e=> e.Department)
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
 

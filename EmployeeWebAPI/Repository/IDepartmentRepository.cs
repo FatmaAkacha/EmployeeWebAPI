@@ -1,10 +1,12 @@
-﻿using Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace EmployeeWebAPI.Repository
 {
     public interface IDepartmentRepository
     {
-        IEnumerable<Department> GetDepartments();
-        Department GetDepartmentsById(int departmentId);
+        Task<ActionResult<Department>> GetDepartment(int id);
+        Task<IEnumerable<Department>> GetDepartments();
+        Task<Department> GetDepartmentsById(int departmentId);
     }
 }

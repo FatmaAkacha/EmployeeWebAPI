@@ -1,4 +1,6 @@
-﻿using Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace EmployeeWebAPI.Repository
 {
@@ -10,17 +12,27 @@ namespace EmployeeWebAPI.Repository
         {
             this.appDbContext = appDbContext;
         }
-        public Department GetDepartment(int departmentId)
+
+        public Task<ActionResult<Department>> GetDepartment(int id)
         {
-            return appDbContext.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Department> GetDepartments()
+        public async Task<Department> GetDepartmentAsync(int departmentId)
         {
-            return appDbContext.Departments;
+            return await appDbContext.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
+        }
+        public async Task<IEnumerable<Department>>GetDepartments()
+        {
+            return await appDbContext.Departments.ToListAsync();
         }
 
         public Department GetDepartmentsById(int departmentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Department> IDepartmentRepository.GetDepartmentsById(int departmentId)
         {
             throw new NotImplementedException();
         }
